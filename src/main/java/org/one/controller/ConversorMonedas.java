@@ -4,6 +4,8 @@ import org.one.model.Moneda;
 
 public class ConversorMonedas {
 
+    //Cambio para probar si funciona la configuración de GitHub.
+
 //    Moneda monedaUno = new Moneda();
 //
 //    String tipoUno = monedaUno.getTipo();

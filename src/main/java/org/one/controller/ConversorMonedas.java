@@ -4,7 +4,7 @@ import org.one.model.Moneda;
 
 public class ConversorMonedas {
 
-    //Cambio para probar si funciona la configuración de GitHub.
+    //Cambio para probar si funciona la configuración de GitHub. Excelente funciona. Se puede comenzar a trabajar desde los dos equipos.
 
 //    Moneda monedaUno = new Moneda();
 //

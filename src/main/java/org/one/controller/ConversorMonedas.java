@@ -4,19 +4,24 @@ import org.one.model.Moneda;
 
 public class ConversorMonedas {
 
-    //función convertir monedas.
-   /* public static double convertToDolar(double quantity, String currency) {
-        //MXN COP
-        switch (currency){
-            case "MXN":
-                quantity = quantity * 0.52;
-                break;
-            case "COP":
-                quantity = 0.00031;
-                break;
-        }
-        return quantity;
-    }*/
+//    Moneda monedaUno = new Moneda();
+//
+//    String tipoUno = monedaUno.getTipo();
+//    double valorActual = monedaUno.getValor();
+//
+//
+//    Moneda monedaDos = new Moneda();
+//    String tipoDos = monedaDos.getTipo();
+//    double enviarResultado = resultado;
+//
+//    public double convertidorMonedas(){
+//        myMoneda.setResultado( = cantidad / valorActual)
+//
+//        //System.out.println(cantidad + " = " + (cantidad / valorActual) + " " + mon);
+//        return resultado;
+//    }
+
+        //System.out.println(cantidad + " = " + (cantidad / valorActual) + " " + mon);
 
 }
 

@@ -1,6 +1,6 @@
 package org.one.main;
 
-import org.one.model.ConvertirMoneda;
+import org.one.controller.Cantidad;
 import org.one.model.Moneda;
 
 public class Main {
@@ -9,9 +9,12 @@ public class Main {
         myMoneda.setTipo("USD");
         myMoneda.setValor(355.86);
 
-        ConvertirMoneda myConvert = new ConvertirMoneda();
+
+        Cantidad myConvert = new Cantidad();
         myConvert.setCantidad(100000);
 
+
         System.out.println(myConvert.getCantidad() / myMoneda.getValor());
+
     }
 }

@@ -2,10 +2,16 @@ package org.one.main;
 
 import org.one.controller.Cantidad;
 import org.one.model.Moneda;
+import org.one.vista.SwingApp;
 
 public class Main {
     public static void main(String[] args) {
-        Moneda myMoneda = new Moneda();
+
+        SwingApp app = new SwingApp();
+        app.setVisible(true);
+
+
+        /*Moneda myMoneda = new Moneda();
         myMoneda.setTipo("USD");
         myMoneda.setValor(355.86);
 
@@ -14,7 +20,7 @@ public class Main {
         myConvert.setCantidad(100000);
 
 
-        System.out.println(myConvert.getCantidad() / myMoneda.getValor());
+        System.out.println(myConvert.getCantidad() / myMoneda.getValor());*/
 
     }
 }

@@ -19,7 +19,28 @@ public class SwingApp extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         //Botones para realizar acciones
-        JButton agregarButton = new JButton("Convertir");
+        JButton convertirButton = new JButton("Convertir");
+
+        //Panel de botones:
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(convertirButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Establecer estilos para los botones
+        convertirButton.setBackground(new Color(46, 204, 113));
+        convertirButton.setForeground(Color.WHITE);
+        convertirButton.setFocusPainted(false);
+
+        //ActionListener para los botones:
+
+        //convertirButton.addActionListener(e -> convertirMoneda);
+
+        //private void convertirMoneda(){
+
+        }
+
+
+
 
 
     }

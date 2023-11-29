@@ -9,6 +9,7 @@ public class Main {
 
         SwingApp app = new SwingApp();
         app.setVisible(true);
+        app.setLocationRelativeTo(null);
 
 
         /*Moneda myMoneda = new Moneda();

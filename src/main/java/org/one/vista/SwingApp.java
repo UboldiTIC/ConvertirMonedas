@@ -1,7 +1,11 @@
 package org.one.vista;
 
+import org.one.model.Moneda;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SwingApp extends JFrame {
 
@@ -46,6 +50,7 @@ public class SwingApp extends JFrame {
         JLabel lblValor = new JLabel("Valor a convertir:");
         campoValor = new JTextField();
         campoValor.setColumns(10);
+
         JLabel lblResultado = new JLabel("Resultado:");
         campoResultado = new JTextField();
         campoResultado.setColumns(10);
@@ -57,6 +62,27 @@ public class SwingApp extends JFrame {
         panelCentral.add(campoResultado);
 
         panelPrincipal.add(panelCentral);
+
+        // Instancia de la clase Moneda
+        Moneda moneda = new Moneda();
+
+        // ActionListener para el botón de convertir
+        btnConvertir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Obtener el valor ingresado en el campo
+                try {
+                    double valor = Double.parseDouble(campoValor.getText());
+
+                    // Llamar al método convertirMoneda de la clase Moneda
+                    double resultado = moneda.convertirMoneda(valor);
+
+                    // Mostrar el resultado en el campo de resultado
+                    campoResultado.setText(String.valueOf(resultado));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(SwingApp.this, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
 
     }

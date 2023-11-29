@@ -1,7 +1,5 @@
 package org.one.main;
 
-import org.one.controller.Cantidad;
-import org.one.model.Moneda;
 import org.one.vista.SwingApp;
 
 public class Main {

@@ -1,5 +1,7 @@
 package org.one.model;
 
+import java.text.DecimalFormat;
+
 public class Moneda {
     private String tipo;
     private double valor;
@@ -26,7 +28,8 @@ public class Moneda {
     }
 
     public double convertirMoneda(double valor) {
-        resultado = valor / 359.99;
+        //resultado = valor / 359.99;
+        resultado = Math.round(valor / 359.99);
         return resultado;
     }
 

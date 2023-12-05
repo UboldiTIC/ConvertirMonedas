@@ -10,7 +10,6 @@ public class Main {
         app.setVisible(true);
         app.setLocationRelativeTo(null);
 
-
         /*Moneda myMoneda = new Moneda();
         myMoneda.setTipo("USD");
         myMoneda.setValor(355.86);

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DecimalFormat;
 
 public class SwingApp extends JFrame {
 
@@ -16,12 +17,18 @@ public class SwingApp extends JFrame {
     private JTextField textCantidad;
     private JTextField textResultado;
     private JComboBox comboBoxValor;
+    public double valorActual;
 
 
     public SwingApp() {
+        //Configuración JFrame
         setTitle("ConvertidorONE");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(250, 250, 700, 500);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Configuración JPanel Contenedor
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setBackground(new Color(17, 0, 0));
@@ -73,6 +80,22 @@ public class SwingApp extends JFrame {
         panelPantalla.add(panelFormMonedas, BorderLayout.CENTER);
         panelFormMonedas.setLayout(null);
 
+        // Instancia de la clase Moneda
+        Moneda moneda = new Moneda();
+
+        //Combo box seleccionar conversion:
+        comboBoxValor = new JComboBox();
+        comboBoxValor.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                //Evento ComboBox:
+                establecerValor();
+                moneda.setValor(valorActual);
+            }
+        });
+        comboBoxValor.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar", "ARS a USD", "USD a ARS", "ARS a EUR", "EUR a ARS"}));
+        comboBoxValor.setBounds(250, 12, 190, 30);
+        panelFormMonedas.add(comboBoxValor);
+
         //Ingresar cantidad a convertir:
         JLabel lblCantidad = new JLabel("Cantidad a convertir:");
         lblCantidad.setForeground(new Color(255, 255, 255));
@@ -103,9 +126,6 @@ public class SwingApp extends JFrame {
         btnConvertirMoneda.setBounds(250, 340, 190, 30);
         panelFormMonedas.add(btnConvertirMoneda);
 
-        // Instancia de la clase Moneda
-        Moneda moneda = new Moneda();
-
         // ActionListener para el botón de convertir
         btnConvertirMoneda.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -117,37 +137,49 @@ public class SwingApp extends JFrame {
                     double resultado = moneda.convertirMoneda(cantidad);
 
                     // Mostrar el resultado en el campo de resultado
-                    textResultado.setText(String.valueOf(resultado));
+                    Double resultadoParcial = Double.valueOf(String.valueOf(resultado));
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    String resultadoFormateado = df.format(resultadoParcial);
+                    textResultado.setText(resultadoFormateado);
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(SwingApp.this, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-
-        //Combo box seleccionar conversion:
-        comboBoxValor = new JComboBox();
-        comboBoxValor.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-            }
-        });
-        comboBoxValor.setModel(new DefaultComboBoxModel(new String[] {"ARS a USD", "USD a ARS", "ARS a EUR", "EUR a ARS"}));
-        comboBoxValor.setBounds(250, 12, 190, 30);
-        panelFormMonedas.add(comboBoxValor);
-
     }
 
-    /**
-     * Curso de Layouts en Java de Cristian Henao:
-     * https://www.youtube.com/playlist?list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs
-     *
-     * Crear botonera con lógica:
-     * https://www.youtube.com/watch?v=xvvMSJ3nfT8&list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs&index=5
-     *
-     * Video para organizar la APP con Java Swing:
-     * https://www.youtube.com/watch?v=hIBEmpV30Ao
-     *
-     * Video para crear y configurar un JComboBox:
-     * https://www.youtube.com/watch?v=3jGkv19Hg0Q
-     * */
+    private void establecerValor() {
+        //Falta que cada valor se tome a partir del consumo de una API.
+        String mi_cambio = comboBoxValor.getSelectedItem().toString();
+        switch (mi_cambio){
+            case "ARS a USD":
+                valorActual = 363.03;
+                break;
+            case "USD a ARS":
+                valorActual = 0.0028;
+                break;
+            case "ARS a EUR":
+                valorActual = 392.80;
+                break;
+            case "EUR a ARS":
+                valorActual = 0.0025;
+                break;
+        }
+    }
 
+//Falta obtener valor de API - Convertir temperatura: habilitar selección de paneles.
+        /**
+         * Curso de Layouts en Java de Cristian Henao:
+         * https://www.youtube.com/playlist?list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs
+         *
+         * Crear botonera con lógica:
+         * https://www.youtube.com/watch?v=xvvMSJ3nfT8&list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs&index=5
+         *
+         * Video para organizar la APP con Java Swing:
+         * https://www.youtube.com/watch?v=hIBEmpV30Ao
+         *
+         * Video para crear y configurar un JComboBox:
+         * https://www.youtube.com/watch?v=3jGkv19Hg0Q
+         * */
 }

@@ -1,10 +1,8 @@
 package org.one.model;
 
-import java.text.DecimalFormat;
-
 public class Moneda {
     private String tipo;
-    private double valor;
+    private double cantidad;
 
     private double resultado;
 
@@ -19,17 +17,18 @@ public class Moneda {
         this.tipo = tipo;
     }
 
-    public double getValor() {
-        return valor;
+    public double getCantidad() {
+        return cantidad;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public double convertirMoneda(double valor) {
+    public double convertirMoneda(double cantidad) {
         //resultado = valor / 359.99;
-        resultado = Math.round(valor / 359.99);
+        //cambiar round por mostrar solo dos decimales.
+        resultado = Math.round(cantidad / 955);
         return resultado;
     }
 

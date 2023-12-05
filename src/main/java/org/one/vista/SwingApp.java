@@ -7,50 +7,55 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class SwingApp extends JFrame {
 
     //Variables:
     private JTextField textCantidad;
     private JTextField textResultado;
+    private JComboBox comboBoxValor;
 
 
     public SwingApp() {
         setTitle("ConvertidorONE");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(200, 200, 600, 450);
+        setBounds(250, 250, 700, 500);
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBackground(new Color(17, 0, 0));
 
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
 
         //Panel general principal
         JPanel panelPrincipal = new JPanel();
-        panelPrincipal.setBackground(new Color(119, 118, 123));
         contentPane.add(panelPrincipal, BorderLayout.CENTER);
         panelPrincipal.setLayout(new BorderLayout(0, 0));
 
         //Panel superior botones seleccionar monedas o temperaturas
         JPanel panelBtnSeleccion = new JPanel();
-        panelBtnSeleccion.setBackground(new Color(36, 31, 49));
+        panelBtnSeleccion.setBackground(new Color(17, 0, 0));
         panelPrincipal.add(panelBtnSeleccion, BorderLayout.NORTH);
 
         //Botones de panel superior:
         JButton btnSelecMoneda = new JButton("Monedas");
+        btnSelecMoneda.setForeground(new Color(255, 255, 255));
         btnSelecMoneda.setPreferredSize(new Dimension(134, 25));
         btnSelecMoneda.setBackground(new Color(192, 28, 40));
         panelBtnSeleccion.add(btnSelecMoneda);
 
         //Agregar cuando sea necesario convertir temperaturas.
         /*JButton btnSelecTemperatura = new JButton("Temperaturas");
+        btnSelecTemperatura.setForeground(new Color(255, 255, 255));
         btnSelecTemperatura.setPreferredSize(new Dimension(134,25));
         btnSelecTemperatura.setBackground(new Color(192, 28, 40));
         panelBtnSeleccion.add(btnSelecTemperatura);*/
 
         //Panel inferior pie de App:
         JPanel panelPie = new JPanel();
-        panelPie.setBackground(new Color(36, 31, 49));
+        panelPie.setBackground(new Color(17, 0, 0));
         panelPrincipal.add(panelPie, BorderLayout.SOUTH);
 
         JLabel lblPie = new JLabel("Proyecto ONE - Oracle Next Education");
@@ -59,40 +64,43 @@ public class SwingApp extends JFrame {
 
         //Panel BorderLayout para mostrar paneles Absolutos:
         JPanel panelPantalla = new JPanel();
-        panelPantalla.setBackground(new Color(94, 92, 100));
         panelPrincipal.add(panelPantalla, BorderLayout.CENTER);
         panelPantalla.setLayout(new BorderLayout(0, 0));
 
         //Panel formularios (absolutos):
         JPanel panelFormMonedas = new JPanel();
-        panelFormMonedas.setBackground(new Color(94, 92, 100));
+        panelFormMonedas.setBackground(new Color(61, 56, 70));
         panelPantalla.add(panelFormMonedas, BorderLayout.CENTER);
         panelFormMonedas.setLayout(null);
 
         //Ingresar cantidad a convertir:
         JLabel lblCantidad = new JLabel("Cantidad a convertir:");
-        lblCantidad.setBounds(134, 12, 160, 25);
+        lblCantidad.setForeground(new Color(255, 255, 255));
+        lblCantidad.setFont(new Font("Dialog", Font.BOLD, 15));
+        lblCantidad.setBounds(255, 138, 191, 25);
         panelFormMonedas.add(lblCantidad);
 
         textCantidad = new JTextField();
-        textCantidad.setBounds(156, 35, 114, 19);
+        textCantidad.setBounds(252, 162, 190, 30);
         panelFormMonedas.add(textCantidad);
         textCantidad.setColumns(10);
 
         //Texto de resultado:
         JLabel lblResultado = new JLabel("Resultado:");
-        lblResultado.setBounds(175, 103, 119, 19);
+        lblResultado.setForeground(new Color(255, 255, 255));
+        lblResultado.setFont(new Font("Dialog", Font.BOLD, 15));
+        lblResultado.setBounds(255, 234, 119, 19);
         panelFormMonedas.add(lblResultado);
 
         textResultado = new JTextField();
         textResultado.setEditable(false);
-        textResultado.setBounds(156, 123, 114, 19);
+        textResultado.setBounds(252, 254, 190, 30);
         panelFormMonedas.add(textResultado);
         textResultado.setColumns(10);
 
         //Botón convertir moneda:
         JButton btnConvertirMoneda = new JButton("Convertir");
-        btnConvertirMoneda.setBounds(156, 168, 114, 25);
+        btnConvertirMoneda.setBounds(250, 340, 190, 30);
         panelFormMonedas.add(btnConvertirMoneda);
 
         // Instancia de la clase Moneda
@@ -103,10 +111,10 @@ public class SwingApp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Obtener el valor ingresado en el campo
                 try {
-                    double valor = Double.parseDouble(textCantidad.getText());
+                    double cantidad = Double.parseDouble(textCantidad.getText());
 
                     // Llamar al método convertirMoneda de la clase Moneda
-                    double resultado = moneda.convertirMoneda(valor);
+                    double resultado = moneda.convertirMoneda(cantidad);
 
                     // Mostrar el resultado en el campo de resultado
                     textResultado.setText(String.valueOf(resultado));
@@ -115,6 +123,17 @@ public class SwingApp extends JFrame {
                 }
             }
         });
+
+        //Combo box seleccionar conversion:
+        comboBoxValor = new JComboBox();
+        comboBoxValor.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+            }
+        });
+        comboBoxValor.setModel(new DefaultComboBoxModel(new String[] {"ARS a USD", "USD a ARS", "ARS a EUR", "EUR a ARS"}));
+        comboBoxValor.setBounds(250, 12, 190, 30);
+        panelFormMonedas.add(comboBoxValor);
+
     }
 
     /**
@@ -127,7 +146,7 @@ public class SwingApp extends JFrame {
      * Video para organizar la APP con Java Swing:
      * https://www.youtube.com/watch?v=hIBEmpV30Ao
      *
-     * Video para crear y configurar un JOptionPane:
+     * Video para crear y configurar un JComboBox:
      * https://www.youtube.com/watch?v=3jGkv19Hg0Q
      * */
 

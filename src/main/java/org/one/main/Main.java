@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
 
         //Iniciar SwingApp:
-        /*SwingApp app = new SwingApp();
+        SwingApp app = new SwingApp();
         app.setVisible(true);
-        app.setLocationRelativeTo(null);*/
+        app.setLocationRelativeTo(null);
 
         Temperatura myTemperatura = new Temperatura();
         myTemperatura.convertirTemperatura(15, "fahrenheit_celsius");
@@ -34,7 +34,7 @@ public class Main {
 
 
 
-        //myTemperatura.convertirTemperatura(myTemperatura.setUnidad("celcius_fahrenheit")myTemperatura.setTemperatura(30);
+        //myTemperatura.convertirTemperatura(myTemperatura.setUnidad("celsius_fahrenheit")myTemperatura.setTemperatura(30);
 
         /*Moneda myMoneda = new Moneda();
         myMoneda.setTipo("USD");

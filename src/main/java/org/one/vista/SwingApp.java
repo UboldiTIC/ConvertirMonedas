@@ -1,24 +1,23 @@
 package org.one.vista;
 
 import org.one.model.Moneda;
+import org.one.model.Temperatura;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class SwingApp extends JFrame implements ActionListener {
 
     //Variables:
-    private JTextField textCantidad;
-    private JTextField textResultado;
+    private JTextField textCantidad, textResultado, textTemperatura, txtResultadoTemperatura;
+    //private JTextField textResultado;
     private JComboBox comboBoxValor;
-    public double valorActual;
-    JPanel contentPane,panelPrincipal,panelBtnSeleccion, panelPantalla1,panelPantalla2, panelPantalla, panelFormMonedas, panelFormTemperaturas, panelPie;
+    public double valor_actual;
+    public String parametro_grados;
+    JPanel contentPane,panelPrincipal,panelBtnSeleccion,panelPantalla1,panelPantalla2,panelPantalla,panelPie;
     JButton btnSelecMoneda, btnSelecTemperatura;
 
 
@@ -34,11 +33,10 @@ public class SwingApp extends JFrame implements ActionListener {
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setBackground(new Color(17, 0, 0));
-
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
 
-        //Panel general principal
+        //Panel general principal. Organiza el resto de los paneles.
         panelPrincipal = new JPanel();
         contentPane.add(panelPrincipal, BorderLayout.CENTER);
         panelPrincipal.setLayout(new BorderLayout(0, 0));
@@ -48,7 +46,7 @@ public class SwingApp extends JFrame implements ActionListener {
         panelBtnSeleccion.setBackground(new Color(17, 0, 0));
         panelPrincipal.add(panelBtnSeleccion, BorderLayout.NORTH);
 
-        //Botones de panel superior:
+        //Botones de panel superior, convertir monedas:
         btnSelecMoneda = new JButton("Monedas");
         btnSelecMoneda.setForeground(new Color(255, 255, 255));
         btnSelecMoneda.setPreferredSize(new Dimension(134, 25));
@@ -56,7 +54,7 @@ public class SwingApp extends JFrame implements ActionListener {
         panelBtnSeleccion.add(btnSelecMoneda);
         btnSelecMoneda.addActionListener(this);
 
-        //Agregar cuando sea necesario convertir temperaturas.
+        //Botones de panel superior, convertir temperaturas:
         btnSelecTemperatura = new JButton("Temperaturas");
         btnSelecTemperatura.setForeground(new Color(255, 255, 255));
         btnSelecTemperatura.setPreferredSize(new Dimension(134,25));
@@ -73,12 +71,13 @@ public class SwingApp extends JFrame implements ActionListener {
         lblPie.setForeground(new Color(246, 245, 244));
         panelPie.add(lblPie);
 
+        //Pantalla central principal, incorpora paneles conversores.
         panelPantalla = new JPanel();
         panelPrincipal.add(panelPantalla, BorderLayout.CENTER);
         panelPantalla.setBackground(new Color(61, 56, 70));
         panelPantalla.setLayout(null);
 
-        //Panel BorderLayout para mostrar paneles Absolutos:
+        //Pantalla 1 conversor de monedas:
         panelPantalla1 = new JPanel();
         panelPantalla1.setBackground(new Color(61, 56, 70));
         panelPantalla1.setBounds(10, 10, 670, 370);
@@ -86,30 +85,15 @@ public class SwingApp extends JFrame implements ActionListener {
         panelPantalla.add(panelPantalla1);
         cargarComponentesPantalla1();
 
-        //Panel BorderLayout para mostrar paneles Absolutos:
+        //Pantalla 2 conversor de temperaturas:
         panelPantalla2 = new JPanel();
-        panelPantalla2.setBackground(Color.GREEN);
+        panelPantalla2.setBackground(new Color(61, 56, 70));
         panelPantalla2.setBounds(10, 10, 670, 370);
         panelPantalla2.setLayout(null);
-        panelPantalla.add(panelPantalla2);
-
-        /*//Panel convertir monedas (absolutos):
-        panelFormMonedas = new JPanel();
-        panelFormMonedas.setBackground(new Color(61, 56, 70));
-        panelPantalla1.add(panelFormMonedas, BorderLayout.CENTER);
-        panelFormMonedas.setLayout(null);*/
-
-
-
-
-        //Panel convertir monedas (absolutos):
-       /* panelFormTemperaturas = new JPanel();
-        panelFormTemperaturas.setBackground(new Color(61, 56, 70));
-        panelPantalla1.add(panelFormTemperaturas, BorderLayout.CENTER);
-        panelFormTemperaturas.setLayout(null);
-        panelFormTemperaturas.setVisible(false);*/
+        cargarComponentesPantalla2();
     }
 
+    //Método cargar componentes del panel conversor de monedas:
     private void cargarComponentesPantalla1() {
 
 
@@ -122,7 +106,7 @@ public class SwingApp extends JFrame implements ActionListener {
             public void itemStateChanged(ItemEvent e) {
                 //Evento ComboBox:
                 establecerValor();
-                moneda.setValor(valorActual);
+                moneda.setValor(valor_actual);
             }
         });
         comboBoxValor.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar", "ARS a USD", "USD a ARS", "ARS a EUR", "EUR a ARS"}));
@@ -166,42 +150,170 @@ public class SwingApp extends JFrame implements ActionListener {
                 try {
                     double cantidad = Double.parseDouble(textCantidad.getText());
 
-                    // Llamar al método convertirMoneda de la clase Moneda
+                    // Envía la cantidad a convertir a la clase Moneda
                     double resultado = moneda.convertirMoneda(cantidad);
 
-                    // Mostrar el resultado en el campo de resultado
-                    Double resultadoParcial = Double.valueOf(String.valueOf(resultado));
+                    // Trae el resultado de la clase Moneda y lo muestra
+                    Double resultado_parcial = Double.valueOf(String.valueOf(resultado));
                     DecimalFormat df = new DecimalFormat("#.##");
-                    String resultadoFormateado = df.format(resultadoParcial);
-                    textResultado.setText(resultadoFormateado);
+                    String resultado_formateado = df.format(resultado_parcial);
+                    textResultado.setText(resultado_formateado);
 
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(SwingApp.this, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-
     }
 
+    //Método cargar componentes del panel conversor de temperaturas:
+    private void cargarComponentesPantalla2() {
+
+        //Instancia de la clase Temperatura
+        Temperatura miTemperatura = new Temperatura();
+
+        //RadioButton seleccionar tipos de temperaturas a convertir:
+
+        JRadioButton rdbtnCelsiusFahrenheit = new JRadioButton("Celsius a Fahrenheit");
+        rdbtnCelsiusFahrenheit.setBounds(62, 37, 190, 23);
+        rdbtnCelsiusFahrenheit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                parametro_grados = "celsius_fahrenheit";
+            }
+        });
+        panelPantalla2.add(rdbtnCelsiusFahrenheit);
+
+        JRadioButton rdbtnCelsiusKelvin = new JRadioButton("Celsius a Kelvin");
+        rdbtnCelsiusKelvin.setBounds(62, 64, 190, 23);
+        rdbtnCelsiusKelvin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                parametro_grados = "celsius_kelvin";
+            }
+        });
+        panelPantalla2.add(rdbtnCelsiusKelvin);
+
+        JRadioButton rdbtnFahrenheitCelsius = new JRadioButton("Fahrenheit a Celsius");
+        rdbtnFahrenheitCelsius.setBounds(255, 37, 190, 23);
+        rdbtnFahrenheitCelsius.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                parametro_grados = "fahrenheit_celsius";
+            }
+        });
+        panelPantalla2.add(rdbtnFahrenheitCelsius);
+
+        JRadioButton rdbtnFahrenheitKelvin = new JRadioButton("Fahrenheit a Kelvin");
+        rdbtnFahrenheitKelvin.setBounds(255, 64, 190, 23);
+        rdbtnFahrenheitKelvin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                parametro_grados = "fahrenheit_kelvin";
+            }
+        });
+        panelPantalla2.add(rdbtnFahrenheitKelvin);
+
+        JRadioButton rdbtnKelvinCelsius = new JRadioButton("Kelvin a Celsius");
+        rdbtnKelvinCelsius.setBounds(449, 37, 190, 23);
+        rdbtnKelvinCelsius.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                parametro_grados="kelvin_celsius";
+            }
+        });
+        panelPantalla2.add(rdbtnKelvinCelsius);
+
+        JRadioButton rdbtnKelvinFahrenheit = new JRadioButton("Kelvin a Fahrenheit");
+        rdbtnKelvinFahrenheit.setBounds(449, 64, 190, 23);
+        rdbtnKelvinFahrenheit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                parametro_grados="kelvin_fahrenheit";
+            }
+        });
+        panelPantalla2.add(rdbtnKelvinFahrenheit);
+
+        //Grupo de RadioButtons, seleccionar una sóla opción:
+        ButtonGroup g1 = new ButtonGroup();
+        g1.add(rdbtnCelsiusFahrenheit);
+        g1.add(rdbtnCelsiusKelvin);
+        g1.add(rdbtnFahrenheitCelsius);
+        g1.add(rdbtnFahrenheitKelvin);
+        g1.add(rdbtnKelvinCelsius);
+        g1.add(rdbtnKelvinFahrenheit);
+
+        //Ingresar cantidad a convertir:
+        JLabel lblTemperatura = new JLabel("Ingresar temperatura");
+        lblTemperatura.setForeground(new Color(255, 255, 255));
+        lblTemperatura.setFont(new Font("Dialog", Font.BOLD, 15));
+        lblTemperatura.setBounds(252, 106, 191, 25);
+        panelPantalla2.add(lblTemperatura);
+
+        textTemperatura = new JTextField();
+        textTemperatura.setBounds(252, 130, 190, 30);
+        panelPantalla2.add(textTemperatura);
+        textTemperatura.setColumns(10);
+
+        //Texto de resultado:
+        JLabel lblResultadoTemperatura = new JLabel("Resultado:");
+        lblResultadoTemperatura.setForeground(new Color(255, 255, 255));
+        lblResultadoTemperatura.setFont(new Font("Dialog", Font.BOLD, 15));
+        lblResultadoTemperatura.setBounds(252, 172, 119, 19);
+        panelPantalla2.add(lblResultadoTemperatura);
+
+        txtResultadoTemperatura = new JTextField();
+        txtResultadoTemperatura.setEditable(false);
+        txtResultadoTemperatura.setBounds(252, 195, 190, 30);
+        panelPantalla2.add(txtResultadoTemperatura);
+        txtResultadoTemperatura.setColumns(10);
+
+        //Botón convertir temperatura:
+        JButton btnConvertirTemperatura = new JButton("Convertir");
+        btnConvertirTemperatura.setBounds(250, 340, 190, 30);
+        panelPantalla2.add(btnConvertirTemperatura);
+
+        btnConvertirTemperatura.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    //Enviar parámetros:
+                    double temperatura = Double.parseDouble(textTemperatura.getText());
+                    miTemperatura.convertirTemperatura(parametro_grados, temperatura);
+
+                    //Mostrar resultado:
+                    Double resultado_parcial = Double.valueOf(miTemperatura.getResultado());
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    String resultado_formateado = df.format(resultado_parcial);
+                    txtResultadoTemperatura.setText(resultado_formateado);
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(SwingApp.this, "Ingrese un número válido o seleccione una opción.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    //Método que recibe una opción del ComboBox, establece un valor y lo envía a la clase moneda.
     private void establecerValor() {
         //Falta que cada valor se tome a partir del consumo de una API.
         String mi_cambio = comboBoxValor.getSelectedItem().toString();
         switch (mi_cambio){
             case "ARS a USD":
-                valorActual = 821.00;
+                valor_actual = 821.00;
                 break;
             case "USD a ARS":
-                valorActual = 0.0012;
+                valor_actual = 0.0012;
                 break;
             case "ARS a EUR":
-                valorActual = 872.87;
+                valor_actual = 872.87;
                 break;
             case "EUR a ARS":
-                valorActual = 0.0011;
+                valor_actual = 0.0011;
                 break;
         }
     }
 
+    //Lógica para eventos de botones que permiten seleccionar los paneles de conversión.
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==btnSelecMoneda) {
@@ -209,12 +321,13 @@ public class SwingApp extends JFrame implements ActionListener {
             panelPantalla2.setVisible(false);
         }
         if(e.getSource()==btnSelecTemperatura) {
+            panelPantalla.add(panelPantalla2);
             panelPantalla2.setVisible(true);
             panelPantalla1.setVisible(false);
         }
     }
 
-//Falta obtener valor de API - Convertir temperatura: habilitar selección de paneles.
+//Falta obtener valor de API - Crear componentes del panel convertir temperatura.
         /**
          * Curso de Layouts en Java de Cristian Henao:
          * https://www.youtube.com/playlist?list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs
@@ -232,5 +345,8 @@ public class SwingApp extends JFrame implements ActionListener {
          * para usar el Conversor de Temperaturas:
          * https://www.youtube.com/watch?v=UUENqBb1l34&t=98s
          * Para ello es muy útil seguir los pasos que explica Cristian Henao en su canal de YouTube.
+         *
+         * Video para crear RadioButtons para convertir temperaturas, Luis Villa:
+         * https://www.youtube.com/watch?v=9mVRegzH_LY
          * */
 }

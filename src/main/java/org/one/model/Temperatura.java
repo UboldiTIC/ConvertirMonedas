@@ -10,7 +10,7 @@ public class Temperatura {
         return resultado;
     }
 
-    public double convertirTemperatura(double temperatura, String unidad) {
+    public double convertirTemperatura(String unidad, double temperatura) {
 
         switch (unidad) {
             case "fahrenheit_celsius":

@@ -11,24 +11,8 @@ public class Main {
         app.setVisible(true);
         app.setLocationRelativeTo(null);
 
-        Temperatura myTemperatura = new Temperatura();
-        myTemperatura.convertirTemperatura(15, "fahrenheit_celsius");
-        System.out.println("El resultado en celsius es: " + myTemperatura.getResultado());
 
-        myTemperatura.convertirTemperatura(15, "fahrenheit_kelvin");
-        System.out.println("El resultado en kelvin es: " + myTemperatura.getResultado());
 
-        myTemperatura.convertirTemperatura(15, "celsius_fahrenheit");
-        System.out.println("El resultado en fahrenheit es: " + myTemperatura.getResultado());
-
-        myTemperatura.convertirTemperatura(15, "celsius_kelvin");
-        System.out.println("El resultado en kelvin es: " + myTemperatura.getResultado());
-
-        myTemperatura.convertirTemperatura(15, "kelvin_celsius");
-        System.out.println("El resultado en celsius es: " + myTemperatura.getResultado());
-
-        myTemperatura.convertirTemperatura(15, "kelvin_fahrenheit");
-        System.out.println("El resultado en fahrenheit es: " + myTemperatura.getResultado());
 
 
 

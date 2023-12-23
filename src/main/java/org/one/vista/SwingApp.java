@@ -348,5 +348,12 @@ public class SwingApp extends JFrame implements ActionListener {
          *
          * Video para crear RadioButtons para convertir temperaturas, Luis Villa:
          * https://www.youtube.com/watch?v=9mVRegzH_LY
+         *
+         * Obtener información de una API:
+         * ¿Qué es una API? TodoCode; Luisina De Paula.
+         * https://www.youtube.com/watch?v=IwnIxk8DdHs
+         *
+         * Consumir una API desde Java - GoGoDEV:
+         * https://www.youtube.com/watch?v=GmL1Nmj9TqY&t=7s
          * */
 }

@@ -355,5 +355,7 @@ public class SwingApp extends JFrame implements ActionListener {
          *
          * Consumir una API desde Java - GoGoDEV:
          * https://www.youtube.com/watch?v=GmL1Nmj9TqY&t=7s
+         *
+         * Agregar dependencia org.json con Maven para poder manipular el JSON.
          * */
 }

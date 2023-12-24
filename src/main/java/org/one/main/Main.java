@@ -1,5 +1,7 @@
 package org.one.main;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.one.model.Temperatura;
 import org.one.vista.SwingApp;
 
@@ -11,8 +13,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        /*//Iniciar SwingApp:
-        SwingApp app = new SwingApp();
+        //Iniciar SwingApp:
+        /*SwingApp app = new SwingApp();
         app.setVisible(true);
         app.setLocationRelativeTo(null);*/
 
@@ -38,8 +40,24 @@ public class Main {
                 scanner.close();
                 //Mostrar la información obtenida por consola:
                 System.out.println(informationString);
-            }
 
+                /**
+                 * Interpretar el contenido de JSON con Maven Repository org.json
+                 * En GOGODEV: https://www.youtube.com/watch?v=kSmwtbRgoDs&list=PLDllzmccetSMFnraCQgehsxfb11v8QXTP&index=2
+                 *
+                 * [] = Dentro de corchetes es un Array. Puede tener un Objeto o muchos.
+                 *      A los arreglos los llamamos JSONArray.
+                 *
+                 * {} = Dentro de llaves es un Objeto.
+                 *      A los objetos los llamamos JSONObject
+                 *
+                 * */
+
+                JSONArray jsonArray = new JSONArray(informationString.toString());
+                JSONObject jsonObject = jsonArray.getJSONObject(1);
+                System.out.println(jsonObject.getString("source"));
+                System.out.println(jsonObject.getDouble("value_sell"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

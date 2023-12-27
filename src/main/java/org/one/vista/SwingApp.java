@@ -298,23 +298,21 @@ public class SwingApp extends JFrame implements ActionListener {
 
     //Método que recibe una opción del ComboBox, establece un valor y lo envía a la clase moneda.
     private void establecerValor() {
-        //Falta que cada valor se tome a partir del consumo de una API.
+        //Los valores se toman desde Bluelytics(v.2) a valor Blue.
         Cotizaciones cotizaciones = new Cotizaciones();
         String mi_cambio = comboBoxValor.getSelectedItem().toString();
         switch (mi_cambio){
             case "ARS a USD":
                 valor_actual = cotizaciones.establecerValorBlue(cotizaciones.getValor_blue());
-                //valor_actual = 821.00;
                 break;
             case "USD a ARS":
-                valor_actual = 0.0012;
+                valor_actual = 1 / cotizaciones.establecerValorBlue(cotizaciones.getValor_blue());
                 break;
             case "ARS a EUR":
                 valor_actual = cotizaciones.establecerValorEuro(cotizaciones.getValor_euro());
-                //valor_actual = 872.87;
                 break;
             case "EUR a ARS":
-                valor_actual = 0.0011;
+                valor_actual = 1 / cotizaciones.establecerValorEuro(cotizaciones.getValor_euro());
                 break;
         }
     }

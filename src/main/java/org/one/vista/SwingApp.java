@@ -1,5 +1,6 @@
 package org.one.vista;
 
+import org.one.model.Cotizaciones;
 import org.one.model.Moneda;
 import org.one.model.Temperatura;
 
@@ -159,6 +160,8 @@ public class SwingApp extends JFrame implements ActionListener {
                     String resultado_formateado = df.format(resultado_parcial);
                     textResultado.setText(resultado_formateado);
 
+                    System.out.println("El valor actual es: " + valor_actual);
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(SwingApp.this, "Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -296,16 +299,19 @@ public class SwingApp extends JFrame implements ActionListener {
     //Método que recibe una opción del ComboBox, establece un valor y lo envía a la clase moneda.
     private void establecerValor() {
         //Falta que cada valor se tome a partir del consumo de una API.
+        Cotizaciones cotizaciones = new Cotizaciones();
         String mi_cambio = comboBoxValor.getSelectedItem().toString();
         switch (mi_cambio){
             case "ARS a USD":
-                valor_actual = 821.00;
+                valor_actual = cotizaciones.establecerValorBlue(cotizaciones.getValor_blue());
+                //valor_actual = 821.00;
                 break;
             case "USD a ARS":
                 valor_actual = 0.0012;
                 break;
             case "ARS a EUR":
-                valor_actual = 872.87;
+                valor_actual = cotizaciones.establecerValorEuro(cotizaciones.getValor_euro());
+                //valor_actual = 872.87;
                 break;
             case "EUR a ARS":
                 valor_actual = 0.0011;

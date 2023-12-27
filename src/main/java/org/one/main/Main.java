@@ -2,6 +2,7 @@ package org.one.main;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.one.model.Cotizaciones;
 import org.one.model.Temperatura;
 import org.one.vista.SwingApp;
 
@@ -14,11 +15,16 @@ public class Main {
     public static void main(String[] args) {
 
         //Iniciar SwingApp:
-        /*SwingApp app = new SwingApp();
+        SwingApp app = new SwingApp();
         app.setVisible(true);
-        app.setLocationRelativeTo(null);*/
+        app.setLocationRelativeTo(null);
 
-        try {
+       /* Cotizaciones cotizaciones = new Cotizaciones();
+        cotizaciones.establecerValorBlue();
+        System.out.println(cotizaciones.getValor_blue());*/
+
+
+        /*try {
             URL url = new URL("https://api.bluelytics.com.ar/json/last_price");
             //Establecer conexión:
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -41,7 +47,7 @@ public class Main {
                 //Mostrar la información obtenida por consola:
                 System.out.println(informationString);
 
-                /**
+                *//**
                  * Interpretar el contenido de JSON con Maven Repository org.json
                  * En GOGODEV: https://www.youtube.com/watch?v=kSmwtbRgoDs&list=PLDllzmccetSMFnraCQgehsxfb11v8QXTP&index=2
                  *
@@ -51,7 +57,7 @@ public class Main {
                  * {} = Dentro de llaves es un Objeto.
                  *      A los objetos los llamamos JSONObject
                  *
-                 * */
+                 * *//*
 
                 JSONArray jsonArray = new JSONArray(informationString.toString());
                 JSONObject jsonObject = jsonArray.getJSONObject(1);
@@ -60,7 +66,7 @@ public class Main {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
 
 

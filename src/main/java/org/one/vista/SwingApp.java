@@ -336,10 +336,7 @@ public class SwingApp extends JFrame implements ActionListener {
          * Curso de Layouts en Java de Cristian Henao:
          * https://www.youtube.com/playlist?list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs
          *
-         * Crear botonera con lógica:
-         * https://www.youtube.com/watch?v=xvvMSJ3nfT8&list=PLAg6Lv5BbjjfAWETI3j3D78ZaophRGhrs&index=5
-         *
-         * Video para organizar la APP con Java Swing:
+         * Video para organizar la APP con Java Swing de Cristian Henao:
          * https://www.youtube.com/watch?v=hIBEmpV30Ao
          *
          * Video para crear y configurar un JComboBox:
@@ -360,6 +357,7 @@ public class SwingApp extends JFrame implements ActionListener {
          * Consumir una API desde Java - GoGoDEV:
          * https://www.youtube.com/watch?v=GmL1Nmj9TqY&t=7s
          *
+         * Manipulación de Objetos y Arreglos JSON.
          * Agregar dependencia org.json con Maven para poder manipular el JSON.
          * */
 }
